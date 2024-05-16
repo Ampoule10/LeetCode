@@ -1,19 +1,21 @@
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
-        String haystack = "saqbutsad";
-        String needle = "sad";
-        System.out.println(getIndex(haystack, needle));
+        int[] nums = {1, 3, 9, 17};
+        int target = 19;
+
+        System.out.println(getIndex(nums, target));
     }
 
-    private static int getIndex(String haystack, String needle) {
-        for (int i = 0; i < haystack.length() - needle.length() + 1; i++) {
-            if (haystack.charAt(i) == needle.charAt(0)) {
-                String checkNeedle = haystack.substring(i, i + needle.length());
-                if (checkNeedle.equals(needle)) {
-                    return i;
-                }
-            }
+    private static int getIndex(int[] nums, int target) {
+
+        int index = Arrays.binarySearch(nums, target);
+
+        if (index >= 0) {
+            return index;
         }
-        return -1;
+        return (index + 1) * (-1);
+
     }
 }
