@@ -1,55 +1,71 @@
-import java.util.HashMap;
-import java.util.Map;
-
 public class Main {
     public static void main(String[] args) {
 
-        Map<Character, Integer> s = new HashMap<>();
-        s.put('I', 1);
-        s.put('V', 5);
-        s.put('X', 10);
-        s.put('L', 50);
-        s.put('C', 100);
-        s.put('D', 500);
-        s.put('M', 1000);
+        String prefix = "";
 
-        String romanNumber = "CM";
-        int arabicNumber = 0;
+        String[] words = {"abcdefg", "abcdefgh", "abcd", "abcde", "abcdefghi"};
 
-        if (!validate(romanNumber,s)) {
-            System.out.println("Invalid input");
+        if (!validate(words)) {
+            System.out.println("Blank words are not allowed.");
             return;
         }
 
-        for (int i = 0; i < romanNumber.length() - 1; i++) {
+        int min = getMin(words);
 
-            Character currentSymbol = (romanNumber.charAt(i));
+        prefix = getPrefix(min, words, prefix);
 
-            Character nextSymbol = (romanNumber.charAt(i + 1));
-
-            if (s.get(currentSymbol) < s.get(nextSymbol)) {
-                arabicNumber = arabicNumber - s.get(currentSymbol);
-            } else {
-                arabicNumber = arabicNumber + s.get(currentSymbol);
-            }
-
-        }
-
-        arabicNumber = arabicNumber + s.get((romanNumber.charAt(romanNumber.length() - 1)));
-
-        System.out.println(romanNumber + " = " + arabicNumber);
+        System.out.println(prefix);
     }
 
-    private static boolean validate(String romanNumber,Map<Character, Integer> s) {
-        if (romanNumber == null || romanNumber.isBlank()) {
-            return false;
-        }
-        for (int i = 0; i < romanNumber.length(); i++) {
-            if(s.get(romanNumber.charAt(i)) == null) {
+    private static boolean validate(String[] words) {
+
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].isBlank()) {
                 return false;
             }
         }
         return true;
     }
-}
 
+    private static int getMin(String[] words) {
+
+        int min = words[0].length();
+        for (int j = 1; j <= words.length - 1; j++) {
+            if (words[j].length() < min) {
+                min = words[j].length();
+            }
+        }
+        return min;
+    }
+
+    private static String getPrefix(int min, String[] words, String prefix) {
+
+        int counter = 1;
+
+        for (int i = 0; i < min; i++) {
+
+            for (int j = 1; j < words.length; j++) {
+
+                if (words[0].charAt(i) == words[j].charAt(i)) {
+                    counter = counter + 1;
+                    if (counter == words.length) {
+                        prefix = prefix + words[0].charAt(i);
+                    }
+                } else {
+                    counter = 0;
+                    break;
+                }
+            }
+
+            if (counter == 0) {
+                break;
+            } else {
+                counter = 1;
+            }
+
+        }
+
+        return prefix;
+    }
+
+}
