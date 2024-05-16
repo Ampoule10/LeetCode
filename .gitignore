@@ -1,0 +1,59 @@
+### IntelliJ IDEA ###
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+.idea/
+*.iml
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+target/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+*.code-workspace
+
+### Mac OS ###
+.DS_Store
+._*
+
+### Windows ###
+Thumbs.db
+
+### Log files ###
+*.log
+
+### Temp files ###
+*.tmp
+*.bak
+
+### Gradle ###
+.gradle/
+build/
+
+### Docker ###
+docker-compose.override.yml
+*.env
+
+### Compiled files ###
+*.class
+
+### Node.js (if applicable) ###
+node_modules/
+
