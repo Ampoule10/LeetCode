@@ -1,71 +1,47 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main {
     public static void main(String[] args) {
 
-        String prefix = "";
+        Map<Character, Character> s = new HashMap<>();
+        s.put('(', ')');
+        s.put('{', '}');
+        s.put('[', ']');
+        s.put(')', ')');
+        s.put('}', '}');
+        s.put(']', ']');
 
-        String[] words = {"abcdefg", "abcdefgh", "abcd", "abcde", "abcdefghi"};
+        String word = "()[]}{";
 
-        if (!validate(words)) {
-            System.out.println("Blank words are not allowed.");
+        if(!validate(word,s)){
+            System.out.println("Invalid input");
             return;
         }
 
-        int min = getMin(words);
+        boolean x = checkBrackets(word,s);
+        System.out.println(x);
 
-        prefix = getPrefix(min, words, prefix);
-
-        System.out.println(prefix);
     }
 
-    private static boolean validate(String[] words) {
-
-        for (int i = 0; i < words.length; i++) {
-            if (words[i].isBlank()) {
+    private static boolean validate(String word, Map<Character, Character> s) {
+        if(word.isBlank()){
+            return false;
+        }
+        for(int i = 0; i < word.length(); i++){
+            if(s.get(word.charAt(i)) == null){
                 return false;
             }
         }
         return true;
     }
 
-    private static int getMin(String[] words) {
-
-        int min = words[0].length();
-        for (int j = 1; j <= words.length - 1; j++) {
-            if (words[j].length() < min) {
-                min = words[j].length();
+    private static boolean checkBrackets(String word,Map<Character, Character> s){
+        for(int i = 0; i < word.length()-1; i++) {
+            if(s.get(word.charAt(i)) == word.charAt(i+1)) {
+                return true;
             }
         }
-        return min;
+        return false;
     }
-
-    private static String getPrefix(int min, String[] words, String prefix) {
-
-        int counter = 1;
-
-        for (int i = 0; i < min; i++) {
-
-            for (int j = 1; j < words.length; j++) {
-
-                if (words[0].charAt(i) == words[j].charAt(i)) {
-                    counter = counter + 1;
-                    if (counter == words.length) {
-                        prefix = prefix + words[0].charAt(i);
-                    }
-                } else {
-                    counter = 0;
-                    break;
-                }
-            }
-
-            if (counter == 0) {
-                break;
-            } else {
-                counter = 1;
-            }
-
-        }
-
-        return prefix;
-    }
-
 }
