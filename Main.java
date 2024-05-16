@@ -1,30 +1,55 @@
-import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
-
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        Map<Character, Integer> s = new HashMap<>();
+        s.put('I', 1);
+        s.put('V', 5);
+        s.put('X', 10);
+        s.put('L', 50);
+        s.put('C', 100);
+        s.put('D', 500);
+        s.put('M', 1000);
 
-        System.out.println("Enter a number: ");
+        String romanNumber = "CM";
+        int arabicNumber = 0;
 
-        int number = sc.nextInt();
-
-        String strNumber = Integer.toString(number);
-
-        System.out.println(strNumber);
-
-        String revStrNumber = "";
-
-        for (int i = strNumber.length() - 1; i >= 0; i--) {
-            revStrNumber = revStrNumber + strNumber.charAt(i);
+        if (!validate(romanNumber,s)) {
+            System.out.println("Invalid input");
+            return;
         }
-        if(revStrNumber.equals(strNumber)){
-            System.out.println("Palindrome");
+
+        for (int i = 0; i < romanNumber.length() - 1; i++) {
+
+            Character currentSymbol = (romanNumber.charAt(i));
+
+            Character nextSymbol = (romanNumber.charAt(i + 1));
+
+            if (s.get(currentSymbol) < s.get(nextSymbol)) {
+                arabicNumber = arabicNumber - s.get(currentSymbol);
+            } else {
+                arabicNumber = arabicNumber + s.get(currentSymbol);
+            }
+
         }
-        else{
-            System.out.println("Not Palindrome");
+
+        arabicNumber = arabicNumber + s.get((romanNumber.charAt(romanNumber.length() - 1)));
+
+        System.out.println(romanNumber + " = " + arabicNumber);
+    }
+
+    private static boolean validate(String romanNumber,Map<Character, Integer> s) {
+        if (romanNumber == null || romanNumber.isBlank()) {
+            return false;
         }
+        for (int i = 0; i < romanNumber.length(); i++) {
+            if(s.get(romanNumber.charAt(i)) == null) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 
