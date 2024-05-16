@@ -1,17 +1,29 @@
+import java.util.Scanner;
+
 public class Main {
+
     public static void main(String[] args) {
 
-        int[] nums = {2, 7, 11, 15};
+        Scanner sc = new Scanner(System.in);
 
-        int target = 9;
+        System.out.println("Enter a number: ");
 
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
-                if (nums[i] + nums[j] == target) {
-                    System.out.println(i);
-                    System.out.println(j);
-                }
-            }
+        int number = sc.nextInt();
+
+        String strNumber = Integer.toString(number);
+
+        System.out.println(strNumber);
+
+        String revStrNumber = "";
+
+        for (int i = strNumber.length() - 1; i >= 0; i--) {
+            revStrNumber = revStrNumber + strNumber.charAt(i);
+        }
+        if(revStrNumber.equals(strNumber)){
+            System.out.println("Palindrome");
+        }
+        else{
+            System.out.println("Not Palindrome");
         }
     }
 }
