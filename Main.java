@@ -1,47 +1,30 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        Map<Character, Character> s = new HashMap<>();
-        s.put('(', ')');
-        s.put('{', '}');
-        s.put('[', ']');
-        s.put(')', ')');
-        s.put('}', '}');
-        s.put(']', ']');
+        List<Integer> listFirst = new ArrayList<>();
+        listFirst.add(1);
+        listFirst.add(2);
+        listFirst.add(4);
 
-        String word = "()[]}{";
+        List<Integer> listSecond = Arrays.asList(1, 3, 4);
 
-        if(!validate(word,s)){
-            System.out.println("Invalid input");
-            return;
+        for(int i = 0; i<listSecond.size(); i++){
+            listFirst.add(listSecond.get(i));
         }
 
-        boolean x = checkBrackets(word,s);
-        System.out.println(x);
-
-    }
-
-    private static boolean validate(String word, Map<Character, Character> s) {
-        if(word.isBlank()){
-            return false;
-        }
-        for(int i = 0; i < word.length(); i++){
-            if(s.get(word.charAt(i)) == null){
-                return false;
+        for (int j = 0; j < listFirst.size(); j++) {
+            for (int i = 0; i < listFirst.size() - 1; i++) {
+                if (listFirst.get(i) > listFirst.get(i + 1)) {
+                    int temp = listFirst.get(i);
+                    listFirst.set(i, listFirst.get(i + 1));
+                    listFirst.set((i + 1), temp);
+                }
             }
         }
-        return true;
-    }
 
-    private static boolean checkBrackets(String word,Map<Character, Character> s){
-        for(int i = 0; i < word.length()-1; i++) {
-            if(s.get(word.charAt(i)) == word.charAt(i+1)) {
-                return true;
-            }
-        }
-        return false;
+        System.out.println(listFirst);
+
     }
 }
